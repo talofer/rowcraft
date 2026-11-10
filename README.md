@@ -1,56 +1,54 @@
 # Table to CSV & Excel Web Extractor - RowCraft
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome_Web_Store-Available_Now-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)
-[![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue?style=for-the-badge)](https://developer.chrome.com/docs/extensions/develop/migrate/what-is-mv3)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Zero Telemetry](https://img.shields.io/badge/Privacy-100%25_Client--Side-brightgreen?style=for-the-badge)](#privacy--security-first)
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ofhajfbdajpjidhcpbofkoeaegjjafeg?label=Chrome%20Web%20Store&logo=googlechrome&logoColor=white&color=10b981)](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)
+[![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-10b981?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)
+[![Privacy: 100% Local](https://img.shields.io/badge/Privacy-100%25%20Client--Side%20In--Memory-0ea5e9)](https://talofer.github.io/rowcraft/privacy.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-f59e0b)](./LICENSE)
 
-> **RowCraft** is a lightweight, zero-configuration Chrome extension designed to extract HTML tables, ARIA grids, and dynamically loaded web tables directly to clean CSV and Excel-compatible files. Built strictly on client-side Manifest V3 architecture with zero user accounts and zero external processing.
+**RowCraft Extractor** turns any messy HTML `<table>`, open Shadow DOM table, or modern ARIA data grid (`[role="grid"]`, `[role="table"]`) into a clean **UTF-8 BOM CSV (`.csv`)**, native **Excel workbook (`.xlsx` — single or multi-sheet)**, or **Clipboard TSV/Markdown** in 1 click.
 
-[**👉 Add to Chrome (Official Store Listing)**](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)
-
----
-
-## ⚡ Key Capabilities
-
-* **1-Click Table Scraping:** Instantly detects all `<table>` elements and ARIA data grids on the active browser tab.
-* **Flawless Excel Compatibility (UTF-8 BOM):** Pre-encodes CSV outputs with `\uFEFF` so international character sets, Hebrew/Arabic glyphs, Asian scripts, and accents open correctly in Microsoft Excel without character corruption.
-* **Cell Sanitization:** Normalizes internal line breaks (`<br>`, `<div>`, `<p>`) and unescaped quotes into clean, uniform cells to prevent fractured spreadsheet rows.
-* **Zero-Account Architecture:** No email sign-up, no OAuth login, and no backend servers.
-* **Large Table Handling:** Free export support for datasets up to 500 rows with immediate unblocked downloads.
+👉 **[Install RowCraft on the Chrome Web Store (100% Free)](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)**  
+🌐 **[Use the Free Online HTML Table to CSV Converter Utility](https://talofer.github.io/rowcraft/)**
 
 ---
 
-## 🔒 Privacy & Security First
+## Why Standard Browser Copy-Paste Breaks Spreadsheets (And How RowCraft Solves It)
 
-Unlike cloud-based scrapers that route page data through remote proxies or cloud databases, RowCraft operates entirely in local browser memory:
+When you highlight an HTML table on a webpage and paste it into Microsoft Excel or Google Sheets:
+1. **Multi-Line Cell Fracturing:** Nested `<br>`, `<div>`, and `<p>` tags inside a single `<td>` cell are interpreted as row breaks, splitting one logical record across 3–5 broken spreadsheet rows.
+2. **UTF-8 Mojibake (`×©×œ×•× `):** Standard `.csv` downloads omit the UTF-8 Byte Order Mark (`\uFEFF`), causing Microsoft Excel on Windows to misread Hebrew, Arabic, CJK, and accented European characters.
+3. **OWASP CSV Formula Injection (DDE):** Web tables containing cells starting with `=`, `+`, `-`, or `@` (such as `=CMD|' /C calc'!A0`) can execute arbitrary formulas when opened in spreadsheet software.
+4. **32,767-Character Overflow:** Cells containing large JSON payloads or logs exceeding Microsoft Excel's hard `32,767`-character cell limit corrupt `.xlsx` and `.csv` imports.
 
-* **Minimal Permissions:** Requests only `activeTab` (to access the inspected table on click) and `storage` (for local preferences).
-* **Zero Remote Processing:** Table parsing and file generation happen in-memory inside your local Chrome sandbox.
-* **Safe for Enterprise:** Complies with corporate IT standards—no tracking cookies, no DOM logging, and zero PII collection.
-
----
-
-## 🚀 Installation & Usage
-
-1. Install RowCraft from the [Chrome Web Store](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg).
-2. Navigate to any webpage containing a table or data grid.
-3. Click the **RowCraft** extension icon in your Chrome toolbar.
-4. Preview the detected rows and select **Export CSV**.
+### What RowCraft Does Automatically in Local Browser Memory
+- **Flattens Internal Cell Line Breaks:** Collapses `<br>`, `<div>`, `<p>`, and `<li>` blocks inside each cell into clean single-line text so rows never fracture.
+- **Prepends `\uFEFF` UTF-8 BOM:** Ensures Microsoft Excel, Google Sheets, and LibreOffice Calc render international characters (`שלום עולם`, `Café`, `日本語`) cleanly on first open.
+- **OWASP DDE / Formula Injection Guard:** Prefixes dangerous formula prefixes (`=`, `+`, `-`, `@`, `\t`, `\r`) with a literal apostrophe (`'`) while preserving signed numbers/currency (`-$1,250.00`, `-42.50`) and dash placeholders (`--`).
+- **1-Click Multi-Sheet `.XLSX` Workbooks:** Detects all tables on a webpage and exports them either individually or combined into a single multi-worksheet `.xlsx` file.
+- **Zero-Backend `activeTab` Privacy:** No `<all_urls>` background host permissions, no account required, and zero table data ever leaves your browser.
 
 ---
 
-## 🛠️ Supported Formats & Common Use Cases
+## Technical Deep-Dive Articles
 
-* **HTML Data Tables:** Standard `<table>`, `<thead>`, `<tbody>`, `<tr>`, `<td>` structures.
-* **Dynamic SPAs:** Tables rendered client-side via React, Angular, Vue, and ag-Grid.
-* **Enterprise Portals:** Intranet dashboards, Salesforce tables, Wikipedia lists, and Jira ticket matrices.
-* **Spreadsheet Platforms:** Fully compatible with Microsoft Excel, Google Sheets, Apple Numbers, and LibreOffice Calc.
+- 📄 [**Why Pasting Web Tables Destroys Excel Rows (And How RFC 4180 & DDE Sanitization Solve It)**](./docs/articles/multiline-table-breaks.md)
+- 🔒 [**The Hidden Security Risks of Cloud Web-Scraping Extensions (`<all_urls>` vs `activeTab`)**](./docs/articles/client-side-vs-cloud-scrapers.md)
 
 ---
 
-## 📄 Legal & Compliance
+## Global Localization (`_locales/`)
 
-* [Privacy Policy](https://github.com/talofer/rowcraft/blob/main/docs/privacy.html)
-* [Terms of Service](https://github.com/talofer/rowcraft/blob/main/docs/terms.html)
-* Licensed under the [MIT License](LICENSE).
+RowCraft ships native Chrome Web Store localization bundles in:
+- 🇺🇸 **English (`en`):** *Table to CSV & Excel: RowCraft Extractor*
+- 🇩🇪 **German (`de`):** *Tabelle zu CSV & Excel: RowCraft Extraktor*
+- 🇪🇸 **Spanish (`es`):** *Tabla a Excel y CSV: RowCraft Extractor*
+- 🇫🇷 **French (`fr`):** *Tableau vers CSV & Excel : RowCraft Extracteur*
+- 🇯🇵 **Japanese (`ja`):** *Web表をCSV・Excelに変換: RowCraft エクストラクター*
+
+---
+
+## Legal & Privacy
+
+- **[Privacy Policy](https://talofer.github.io/rowcraft/privacy.html)** — 100% client-side in-memory table extraction.
+- **[Terms of Service](https://talofer.github.io/rowcraft/terms.html)** — Provided "AS IS" with a strict $10.00 USD limitation of liability.
+- **[License](./LICENSE)** — MIT License.
