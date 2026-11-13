@@ -8,7 +8,8 @@
 **RowCraft Extractor** turns any messy HTML `<table>`, open Shadow DOM table, or modern ARIA data grid (`[role="grid"]`, `[role="table"]`) into a clean **UTF-8 BOM CSV (`.csv`)**, native **Excel workbook (`.xlsx` — single or multi-sheet)**, or **Clipboard TSV/Markdown** in 1 click.
 
 👉 **[Install RowCraft on the Chrome Web Store (100% Free)](https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg)**  
-🌐 **[Use the Free Online HTML Table to CSV Converter Utility](https://talofer.github.io/rowcraft/)**
+🌐 **[Use the Free Online HTML Table to CSV Converter Utility](https://talofer.github.io/rowcraft/)**  
+🖼️ **Also by our team:** [PixelHarvest — Bulk Image Downloader & WebP to JPG Converter](https://chromewebstore.google.com/detail/image-downloader-bulk-web/mpdjciplejafjpdjkapfjafbgamebfco) ([Web Utility](https://talofer.github.io/pixelharvest/))
 
 ---
 

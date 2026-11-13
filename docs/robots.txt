@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://talofer.github.io/rowcraft/sitemap.xml
