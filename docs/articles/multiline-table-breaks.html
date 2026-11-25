@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="DJPxPRV0Qgn9BNlFgCiaTxv9-z0V3OlWtmHD3aBxuGI" />
+  <title>Why Pasting Web Tables Destroys Excel Rows (And How to Fix It) — RowCraft</title>
+  <meta name="description" content="Learn why copying HTML tables into Excel breaks rows, shifts columns, garbles UTF-8 Hebrew/CJK text, and triggers formula injection—and how to export clean CSV/XLSX in 1 click." />
+  <link rel="canonical" href="https://talofer.github.io/rowcraft/articles/multiline-table-breaks.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why Pasting Web Tables Destroys Excel Rows (And How RFC 4180 & DDE Sanitization Solve It)",
+    "author": { "@type": "Organization", "name": "RowCraft Extractor" },
+    "datePublished": "2026-11-10",
+    "dateModified": "2026-11-25",
+    "mainEntityOfPage": "https://talofer.github.io/rowcraft/articles/multiline-table-breaks.html"
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+  <div class="sticky top-0 z-50 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-slate-950 px-4 py-2.5 shadow-lg">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-semibold">
+      <span>Fix broken web table exports in 1 click — 100% Free &amp; Local Chrome Extension</span>
+      <div class="flex items-center gap-2">
+        <a href="https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg" class="px-3 py-1 rounded-lg bg-slate-950 text-emerald-300 font-bold text-xs">Add RowCraft to Chrome</a>
+        <a href="../index.html#web-converter" class="px-3 py-1 rounded-lg bg-white/90 text-slate-950 font-bold text-xs">Free Web Tool</a>
+      </div>
+    </div>
+  </div>
+  <main class="max-w-3xl mx-auto px-6 py-12 space-y-8 leading-relaxed">
+    <a href="../index.html" class="text-xs font-semibold text-emerald-400 hover:underline">&larr; Back to RowCraft Online HTML Table Converter</a>
+    <header class="space-y-3">
+      <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">Technical Guide · Spreadsheet Engineering</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">Why Pasting Web Tables Destroys Excel Rows (And How RFC 4180 &amp; DDE Sanitization Solve It)</h1>
+      <p class="text-slate-400 text-sm">Published by RowCraft · Updated November 25, 2026</p>
+    </header>
+    <article class="space-y-6 text-slate-300 text-sm sm:text-base">
+      <p>Every data analyst, financial operator, and researcher has experienced the same frustration: you highlight a table on a webpage, press <code>Ctrl+C</code>, switch to Microsoft Excel or Google Sheets, press <code>Ctrl+V</code>, and the spreadsheet explodes into misaligned columns, fractured rows, and garbled UTF-8 characters.</p>
+      <h2 class="text-xl font-bold text-white pt-2">1. Multi-Line Cell Fracturing (&lt;br&gt;, &lt;div&gt;, &lt;p&gt;)</h2>
+      <p>Modern SaaS dashboards (Stripe, Jira, GitHub, Salesforce, Wikipedia) stack block HTML tags inside a single <code>&lt;td&gt;</code> or ARIA <code>[role="gridcell"]</code>. Standard browser copy-paste serializes those nested elements as raw <code>\r\n</code> line breaks, which Excel interprets as brand-new rows—shattering one record across 3–5 rows.</p>
+      <p><strong>The Fix:</strong> RowCraft clones each cell in local browser memory, strips <code>&lt;script&gt;</code>/<code>&lt;style&gt;</code> nodes, collapses internal <code>&lt;br&gt;</code> and block tags into single spaces, and outputs strict RFC 4180 CSV or native binary <code>.xlsx</code> so <strong>1 web row always equals 1 Excel row</strong>.</p>
+      <h2 class="text-xl font-bold text-white pt-2">2. OWASP CSV Formula Injection (DDE) Without Breaking Negative Numbers</h2>
+      <p>Web tables containing cells starting with <code>=</code>, <code>+</code>, <code>-</code>, or <code>@</code> (like <code>=CMD|' /C calc'!A0</code>) can execute as live formulas when opened in Excel. RowCraft neutralizes dangerous formula prefixes with a leading apostrophe (<code>'</code>) while intelligently preserving negative currency (<code>-$1,250.00</code>), negative decimals (<code>-42.50</code>), and standalone dash placeholders (<code>--</code>).</p>
+      <h2 class="text-xl font-bold text-white pt-2">3. Excel's Hard 32,767-Character Cell Limit</h2>
+      <p>If any table cell contains a long JSON blob or log message exceeding 32,767 characters, Microsoft Excel triggers a workbook corruption warning. RowCraft enforces clean 32,767-character cell truncation before generating both <code>.csv</code> and multi-sheet <code>.xlsx</code> files.</p>
+      <h2 class="text-xl font-bold text-white pt-2">4. Missing \uFEFF UTF-8 Byte Order Mark (BOM)</h2>
+      <p>Standard UTF-8 CSV files without a BOM open in Windows Excel using legacy ANSI encoding, garbling Hebrew (<code>שלום עולם</code>), Japanese (<code>日本語</code>), and European accents (<code>Café</code>). RowCraft prepends <code>\uFEFF</code> at byte 0 so international text opens cleanly on the first double-click.</p>
+      <div class="p-6 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 space-y-3 mt-8">
+        <h3 class="text-lg font-bold text-white">Try RowCraft 100% Free &amp; Local</h3>
+        <p class="text-xs sm:text-sm text-slate-300">Extract HTML tables, Shadow DOM, and React/Vue ARIA grids in 1 click without cloud uploads or sign-up.</p>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a href="https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">Install RowCraft on Chrome Web Store &rarr;</a>
+          <a href="../index.html#web-converter" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700">Use Free Online Converter</a>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="DJPxPRV0Qgn9BNlFgCiaTxv9-z0V3OlWtmHD3aBxuGI" />
+  <title>Security Risks of Cloud Web-Scraping Extensions (&lt;all_urls&gt; vs activeTab) — RowCraft</title>
+  <meta name="description" content="Compare broad <all_urls> cloud table scrapers against strict activeTab client-side Manifest V3 Chrome extensions for safe financial, CRM, and enterprise data export." />
+  <link rel="canonical" href="https://talofer.github.io/rowcraft/articles/client-side-vs-cloud-scrapers.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Hidden Security Risks of Cloud Web-Scraping Extensions (<all_urls> vs activeTab)",
+    "author": { "@type": "Organization", "name": "RowCraft Extractor" },
+    "datePublished": "2026-11-10",
+    "dateModified": "2026-11-25",
+    "mainEntityOfPage": "https://talofer.github.io/rowcraft/articles/client-side-vs-cloud-scrapers.html"
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+  <div class="sticky top-0 z-50 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-slate-950 px-4 py-2.5 shadow-lg">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-semibold">
+      <span>Zero &lt;all_urls&gt; · 100% Local Table to Excel &amp; CSV Extractor</span>
+      <a href="https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg" class="px-3 py-1 rounded-lg bg-slate-950 text-emerald-300 font-bold text-xs">Add RowCraft to Chrome — Free</a>
+    </div>
+  </div>
+  <main class="max-w-3xl mx-auto px-6 py-12 space-y-8 leading-relaxed">
+    <a href="../index.html" class="text-xs font-semibold text-emerald-400 hover:underline">&larr; Back to RowCraft Extractor</a>
+    <header class="space-y-3">
+      <span class="px-2.5 py-1 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-300 text-xs font-semibold">Extension Security · Manifest V3 Audit</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">The Hidden Security Risks of Cloud Web-Scraping Extensions (<code>&lt;all_urls&gt;</code> vs <code>activeTab</code>)</h1>
+      <p class="text-slate-400 text-sm">Published by RowCraft · Updated November 25, 2026</p>
+    </header>
+    <article class="space-y-6 text-slate-300 text-sm sm:text-base">
+      <p>When installing a browser extension to export HTML tables to Excel or CSV, most users click "Add to Chrome" without noticing the warning: <em>"Read and change all your data on all websites."</em> That permission (<code>&lt;all_urls&gt;</code>) allows background scripts to inspect banking portals, internal ERP dashboards, and private CRMs 24/7.</p>
+      <h2 class="text-xl font-bold text-white pt-2">Why Strict <code>activeTab</code> + Local Memory Matters</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Zero Background Access:</strong> RowCraft requests only <code>activeTab</code>, <code>scripting</code>, and <code>storage</code>. It cannot access any webpage until you explicitly click the toolbar icon or press <code>Alt+Shift+E</code>.</li>
+        <li><strong>100% In-Browser Parsing:</strong> CSV and multi-sheet <code>.xlsx</code> binary files are generated locally via <code>Blob</code> and <code>URL.createObjectURL()</code>. Zero cells or URLs leave your device.</li>
+        <li><strong>DOM XSS Hardening:</strong> Table previews are rendered strictly with <code>document.createElement</code> and <code>textContent</code> (zero <code>innerHTML</code>), preventing malicious table markup from executing inside the popup.</li>
+      </ul>
+      <div class="p-6 rounded-2xl bg-slate-900 border border-emerald-500/40 space-y-3 mt-8">
+        <h3 class="text-lg font-bold text-white">Export Private Dashboards Safely</h3>
+        <p class="text-xs sm:text-sm text-slate-300">Audit RowCraft's minimal permissions and start exporting clean CSV &amp; Excel files in 1 click.</p>
+        <a href="https://chromewebstore.google.com/detail/ofhajfbdajpjidhcpbofkoeaegjjafeg" class="inline-block px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">Install RowCraft on Chrome Web Store &rarr;</a>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
